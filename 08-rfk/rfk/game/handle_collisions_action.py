@@ -8,6 +8,9 @@ class HandleCollisionsAction(Action):
     Stereotype:
         Controller
     """
+    def __init__(self, physics_service):
+        super().__init__()
+        self._physics_service = physics_service
 
     def execute(self, cast):
         """Executes the action using the given actors.
@@ -20,6 +23,6 @@ class HandleCollisionsAction(Action):
         artifacts = cast["artifact"]
         marquee.set_text("")
         for artifact in artifacts:
-            if robot.get_position().equals(artifact.get_position()):
+            if self._physics_service.is_collision(robot, artifact):
                 description = artifact.get_description()
                 marquee.set_text(description) 

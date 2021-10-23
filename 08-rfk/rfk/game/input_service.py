@@ -1,37 +1,65 @@
 import sys
 from game.point import Point
-from asciimatics.event import KeyboardEvent
+import raylibpy
 
 class InputService:
-    """Detects player input. The responsibility of the class of objects is to detect and communicate player keypresses.
+    """Detects player input. The responsibility of the class of objects is to detect player keypresses and translate them into a point representing a direction (or velocity).
 
     Stereotype: 
         Service Provider
 
     Attributes:
         _screen (Screen): An Asciimatics screen.
-        _keys (list): Points for up, dn, lt, rt.
+        _keys (Dict): A dictionary containing Points for U, D, L and R.
+        _current (Point): The last direction that was pressed.
     """
 
-    def __init__(self, screen):
-        """The class constructor."""
-        self._screen = screen
-        self._keys = {}
-        self._keys[119] = Point(0, -1) # w
-        self._keys[115] = Point(0, 1) # s
-        self._keys[97] = Point(-1, 0) # a
-        self._keys[100] = Point(1, 0) # d
+    def __init__(self):
+        """The class constructor.
+        
+        Args:
+            self (InputService): An instance of InputService.
+        """
+        pass
         
     def get_direction(self):
-        """Gets the selected direction for the given player.
+        """Gets the selected direction based on the currently pressed keys.
+
+        Args:
+            self (InputService): An instance of InputService.
 
         Returns:
             Point: The selected direction.
         """
-        direction = Point(0, 0)
-        event = self._screen.get_event()
-        if isinstance(event, KeyboardEvent):
-            if event.key_code == 27:
-                sys.exit()
-            direction = self._keys.get(event.key_code, Point(0, 0))
+        dx = 0
+        dy = 0
+
+        if self.is_left_pressed():
+            dx = -1
+        
+        if self.is_right_pressed():
+            dx = 1
+        
+        if self.is_up_pressed():
+            dy = -1
+        
+        if self.is_down_pressed():
+            dy = 1
+
+        direction = Point(dx, dy)
         return direction
+
+    def is_left_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_LEFT)
+
+    def is_right_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_RIGHT)
+
+    def is_up_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_UP)
+
+    def is_down_pressed(self):
+        return raylibpy.is_key_down(raylibpy.KEY_DOWN)
+
+    def window_should_close(self):
+        return raylibpy.window_should_close()
