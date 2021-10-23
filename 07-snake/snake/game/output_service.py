@@ -1,6 +1,6 @@
 import sys
 from game import constants
-from asciimatics.widgets import Frame
+import raylibpy
 
 class OutputService:
     """Outputs the game state. The responsibility of the class of objects is to draw the game state on the terminal. 
@@ -9,28 +9,54 @@ class OutputService:
         Service Provider
 
     Attributes:
-        _screen (Screen): An Asciimatics screen.
+        None
     """
 
-    def __init__(self, screen):
+    def __init__(self):
         """The class constructor.
         
         Args:
             self (OutputService): An instance of OutputService.
-            screen (Screen): An Asciimatics Screen.
         """
-        self._screen = screen
+        pass
+
+    def open_window(self, title):
+        """
+        Opens a new window with the specified title
+        """
+        raylibpy.init_window(constants.MAX_X, constants.MAX_Y, title)
+        raylibpy.set_target_fps(constants.FRAME_RATE)
         
     def clear_screen(self):
-        """Clears the Asciimatics buffer in preparation for the next rendering.
+        """Clears the screen in preparation for the next rendering.
 
         Args:
             self (OutputService): An instance of OutputService.
         """ 
-        self._screen.clear_buffer(7, 0, 0)
-        self._screen.print_at("-" * constants.MAX_X, 0, 0, 7)
-        self._screen.print_at("-" * constants.MAX_X, 0, constants.MAX_Y, 7)
-        
+        raylibpy.begin_drawing()
+        raylibpy.clear_background(raylibpy.WHITE)
+
+    def draw_box(self, x, y, width, height):
+        """
+        Draws at rectangular box with the provided specifications.
+        """
+        raylibpy.draw_rectangle(x, y, width, height, raylibpy.BLUE)
+
+    def draw_text(self, x, y, text, is_dark_text):
+        """
+        Outputs the provided text at the desired location.
+        """
+        color = raylibpy.WHITE
+
+        if is_dark_text:
+            color = raylibpy.BLACK
+
+        raylibpy.draw_text(text,
+            x + constants.DEFAULT_TEXT_OFFSET,
+            y + constants.DEFAULT_TEXT_OFFSET,
+            constants.DEFAULT_FONT_SIZE,
+            color)
+
     def draw_actor(self, actor):
         """Renders the given actor's text on the screen.
 
@@ -42,7 +68,19 @@ class OutputService:
         position = actor.get_position()
         x = position.get_x()
         y = position.get_y()
-        self._screen.print_at(text, x, y, 7) # WHITE
+        width = actor.get_width()
+        height = actor.get_height()
+
+        is_dark_text = True
+
+        if width > 0 and height > 0:
+            self.draw_box(x, y, width, height)
+            is_dark_text = False
+        
+        if text != "":
+            self.draw_text(x, y, text, is_dark_text)
+        #self._screen.print_at(text, x, y, 7) # WHITE
+        #raylibpy.draw_text(text, x, y, 16, raylibpy.BLUE)
 
     def draw_actors(self, actors):
         """Renders the given list of actors on the screen.
@@ -60,4 +98,4 @@ class OutputService:
         Args:
             self (OutputService): An instance of OutputService.
         """ 
-        self._screen.refresh()    
+        raylibpy.end_drawing()
