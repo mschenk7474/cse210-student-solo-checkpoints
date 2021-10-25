@@ -2,7 +2,8 @@ from time import sleep
 
 import raylibpy
 from game import constants
-from game.food import Food
+# TODO: Uncomment this when you have finished the food class
+#from game.food import Food
 from game.score_board import ScoreBoard
 from game.snake import Snake
 
@@ -28,7 +29,8 @@ class Director:
         Args:
             self (Director): an instance of Director.
         """
-        self._food = Food()
+        # TODO: Uncomment this when you have finished the food class
+        #self._food = Food()
         self._input_service = input_service
         self._keep_playing = True
         self._output_service = output_service
@@ -73,7 +75,8 @@ class Director:
         """
         self._snake.move()
         self._handle_body_collision()
-        self._handle_food_collision()
+        # TODO: Uncomment this when you have finished the food class
+        #self._handle_food_collision()
         
     def _do_outputs(self):
         """Outputs the important game information for each round of play. In 
@@ -84,7 +87,8 @@ class Director:
             self (Director): An instance of Director.
         """
         self._output_service.clear_screen()
-        self._output_service.draw_actor(self._food)
+        # TODO: Uncomment this when you have finished the food class
+        #self._output_service.draw_actor(self._food)
         self._output_service.draw_actors(self._snake.get_all())
         self._output_service.draw_actor(self._score_board)
         self._output_service.flush_buffer()
@@ -120,23 +124,24 @@ class Director:
 
         return raylibpy.check_collision_recs(rectangle1, rectangle2)
 
-    def _handle_food_collision(self):
-        """Handles collisions between the snake's head and the food. Grows the 
-        snake, updates the score and moves the food if there is one.
+    # TODO: Uncomment this when you have finished the food class
+    # def _handle_food_collision(self):
+    #     """Handles collisions between the snake's head and the food. Grows the 
+    #     snake, updates the score and moves the food if there is one.
 
-        Args:
-            self (Director): An instance of Director.
-        """
-        head = self._snake.get_head()
-        if self._is_collision(head, self._food):
-            # get the amount the food is worth
-            points = self._food.get_points()
+    #     Args:
+    #         self (Director): An instance of Director.
+    #     """
+    #     head = self._snake.get_head()
+    #     if self._is_collision(head, self._food):
+    #         # get the amount the food is worth
+    #         points = self._food.get_points()
 
-            # grow the tail by that much
-            self._snake.grow_tail(points)
+    #         # grow the tail by that much
+    #         self._snake.grow_tail(points)
 
-            # add to the score
-            self._score_board.add_points(points)
+    #         # add to the score
+    #         self._score_board.add_points(points)
 
-            # get a new food
-            self._food.reset() 
+    #         # get a new food
+    #         self._food.reset() 
