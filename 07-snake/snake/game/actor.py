@@ -2,7 +2,8 @@ from game import constants
 from game.point import Point
 
 class Actor:
-    """A visible, moveable thing that participates in the game. The responsibility of Actor is to keep track of its appearance, position 
+    """A visible, moveable thing that participates in the game. The
+    responsibility of Actor is to keep track of its appearance, position 
     and velocity in 2d space.
 
     Stereotype:
@@ -12,6 +13,8 @@ class Actor:
         _text (string): The textual representation of the actor.
         _position (Point): The actor's position in 2d space.
         _velocity (Point): The actor's speed and direction.
+        _width (int): The actor's width
+        _height (int): The actor's height
     """
 
     def __init__(self):
@@ -23,6 +26,20 @@ class Actor:
         self._text = ""
         self._position = Point(0, 0)
         self._velocity = Point(0, 0)
+        self._width = 0
+        self._height = 0
+
+    def get_width(self):
+        return self._width
+
+    def set_width(self, width):
+        self._width = width
+    
+    def get_height(self):
+        return self._height
+
+    def set_height(self, height):
+        self._height = height
         
     def get_position(self):
         """Gets the actor's position in 2d space.
@@ -46,6 +63,9 @@ class Actor:
         """
         return self._text
 
+    def set_text(self, text):
+        self._text = text;
+
     def get_velocity(self):
         """Gets the actor's speed and direction.
         
@@ -65,12 +85,13 @@ class Actor:
         Args:
             self (Actor): an instance of Actor.
         """
-        x1 = self._position.get_x()
-        y1 = self._position.get_y()
-        x2 = self._velocity.get_x()
-        y2 = self._velocity.get_y()
-        x = 1 + (x1 + x2 - 1) % (constants.MAX_X - 1)
-        y = 1 + (y1 + y2 - 1) % (constants.MAX_Y - 1)
+        x = self._position.get_x()
+        y = self._position.get_y()
+        dx = self._velocity.get_x()
+        dy = self._velocity.get_y()
+        x = (x + dx) % constants.MAX_X
+        y = (y + dy) % constants.MAX_Y
+
         position = Point(x, y)
         self._position = position
     

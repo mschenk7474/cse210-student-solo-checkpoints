@@ -13,6 +13,7 @@ class Point:
         """The class constructor.
         
         Args:
+            self (Point): An instance of Point.
             x (integer): A horizontal distance.
             y (integer): A vertical distance.
         """
@@ -23,6 +24,7 @@ class Point:
         """Gets a new point that is the sum of this and the given one.
 
         Args:
+            self (Point): An instance of Point.
             other (Point): The Point to add.
 
         Returns:
@@ -36,6 +38,7 @@ class Point:
         """Whether or not this Point is equal to the given one.
 
         Args:
+            self (Point): An instance of Point.
             other (Point): The Point to compare.
 
         Returns: 
@@ -46,6 +49,9 @@ class Point:
     def get_x(self):
         """Gets the horizontal distance.
         
+        Args:
+            self (Point): An instance of Point.
+            
         Returns:
             integer: The horizontal distance.
         """
@@ -54,25 +60,41 @@ class Point:
     def get_y(self):
         """Gets the vertical distance.
         
+        Args:
+            self (Point): An instance of Point.
+            
         Returns:
             integer: The vertical distance.
         """
         return self._y
 
-    def is_zero(self):
-        """Whether or not the point is zero or x = 0 and y = 0.
-        
-        Returns:
-            boolean: True if x = 0 and y = 0; false if otherwise.
+    def scale(self, factor):
         """
-        return self._x == 0 and self._y == 0
-        
+        Scales the point by the provided factor.
+
+        Args:
+            self (Point): An instance of Point.
+            factor (int): The amount to scale.
+            
+        Returns:
+            Point: A new Point that is scaled.
+
+        """
+        return Point(self._x * factor, self._y * factor)
+
     def reverse(self):
         """Gets a new Point that is the reverse of this one.
         
+        Args:
+            self (Point): An instance of Point.
+            
         Returns:
             Point: A new Point that is reversed.
         """
-        x = self._x * -1
-        y = self._y * -1
-        return Point(x, y)
+        return self.scale(-1)
+
+    def is_zero(self):
+        """
+        Returns True if both the x and y coordinate are 0.
+        """
+        return self._x == 0 and self._y == 0

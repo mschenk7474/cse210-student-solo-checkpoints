@@ -9,30 +9,43 @@ class Actor:
         Information Holder
 
     Attributes:
-        _tag (string): The actor's tag.
         _text (string): The textual representation of the actor.
         _position (Point): The actor's position in 2d space.
         _velocity (Point): The actor's speed and direction.
+        _width (int): The actor's width
+        _height (int): The actor's height
     """
 
     def __init__(self):
-        """The class constructor."""
-        self._description = ""
+        """The class constructor.
+        
+        Args:
+            self (Actor): an instance of Actor.
+        """
         self._text = ""
         self._position = Point(0, 0)
         self._velocity = Point(0, 0)
+        self._width = 0
+        self._height = 0
 
-    def get_description(self):
-        """Gets the artifact's description.
+    def get_width(self):
+        return self._width
+
+    def set_width(self, width):
+        self._width = width
+    
+    def get_height(self):
+        return self._height
+
+    def set_height(self, height):
+        self._height = height
         
-        Returns:
-            string: The artifact's description.
-        """
-        return self._description 
-
     def get_position(self):
         """Gets the actor's position in 2d space.
         
+        Args:
+            self (Actor): an instance of Actor.
+
         Returns:
             Point: The actor's position in 2d space.
         """
@@ -41,31 +54,51 @@ class Actor:
     def get_text(self):
         """Gets the actor's textual representation.
         
+        Args:
+            self (Actor): an instance of Actor.
+
         Returns:
             string: The actor's textual representation.
         """
         return self._text
 
+    def set_text(self, text):
+        self._text = text;
+
     def get_velocity(self):
         """Gets the actor's speed and direction.
         
+        Args:
+            self (Actor): an instance of Actor.
+
         Returns:
             Point: The actor's speed and direction.
         """
         return self._velocity
     
-    def set_description(self, description):
-        """Updates the actor's description to the given one.
+    def move_next(self):
+        """Moves the actor to its next position according to its velocity. Will 
+        wrap the position from one side of the screen to the other when it 
+        reaches the boundary in either direction.
         
         Args:
-            description (string): The given description.
+            self (Actor): an instance of Actor.
         """
-        self._description = description
+        x = self._position.get_x()
+        y = self._position.get_y()
+        dx = self._velocity.get_x()
+        dy = self._velocity.get_y()
+        x = (x + dx) % constants.MAX_X
+        y = (y + dy) % constants.MAX_Y
 
+        position = Point(x, y)
+        self._position = position
+    
     def set_position(self, position):
         """Updates the actor's position to the given one.
         
         Args:
+            self (Actor): An instance of Actor.
             position (Point): The given position.
         """
         self._position = position
@@ -74,6 +107,7 @@ class Actor:
         """Updates the actor's text to the given value.
         
         Args:
+            self (Actor): An instance of Actor.
             text (string): The given value.
         """
         self._text = text
@@ -82,6 +116,7 @@ class Actor:
         """Updates the actor's velocity to the given one.
         
         Args:
+            self (Actor): An instance of Actor.
             position (Point): The given velocity.
         """
         self._velocity = velocity
