@@ -35,7 +35,7 @@ root                    (project root folder)
 ## Required Technologies
 ---
 * Python 3.8.0
-* Asciimatics 1.12.0
+* RayLib 2.0.0
 
 ## Authors
 ---
