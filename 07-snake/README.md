@@ -5,7 +5,7 @@ Every time you eat an apple the snake grows. If you run into yourself the game
 is over.
 ## Getting Started
 ---
-Make sure you have Python 3.8.0 or newer and asciimatics 1.12.0 or new installed 
+Make sure you have Python 3.8.0 or newer and raylib 2.0.0 or new installed 
 and running on your machine. You can install RayLib by opening a terminal 
 and running the following command.
 ```
