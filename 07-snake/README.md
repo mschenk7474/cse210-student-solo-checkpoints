@@ -6,10 +6,10 @@ is over.
 ## Getting Started
 ---
 Make sure you have Python 3.8.0 or newer and asciimatics 1.12.0 or new installed 
-and running on your machine. You can install Asciimatics by opening a terminal 
+and running on your machine. You can install RayLib by opening a terminal 
 and running the following command.
 ```
-python3 -m pip install asciimatics
+python3 -m pip install raylib-py
 ```
 After you've installed the required libraries, open a terminal and browse to the 
 project's root folder. Start the program by running the following command.
