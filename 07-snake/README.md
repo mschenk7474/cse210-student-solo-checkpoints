@@ -39,4 +39,4 @@ root                    (project root folder)
 
 ## Authors
 ---
-* # TODO: Add your name and email here
+* Mason Schenk @masonschenk@gmail.com
