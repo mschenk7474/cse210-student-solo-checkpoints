@@ -1,3 +1,6 @@
+import os
+os.environ['RAYLIB_BIN_PATH'] = r'C:\Users\SchenkKids\Documents\CSE-210-Repos\cse210-student-team-challenges\07-speed\speed\game\raylib-2.0.0-Win64-mingw\lib'
+
 import random
 from game import constants
 from game.director import Director
